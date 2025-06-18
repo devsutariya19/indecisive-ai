@@ -5,35 +5,63 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { getUUID } from '@/lib/utils'
 import { OptionData } from '@/types/OptionData'
-import { BrainCircuit, Plus, Sparkles } from 'lucide-react'
+import { Brain, BrainCircuit, Plus, Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
 
 export default function InputCard() {
 
+  const [question, setQuestion] = useState("")
+  const [context, setContext] = useState("")
   const [options, setOptions] = useState<OptionData[]>([
-    {id: 1, name: '', pros: [''], cons: ['']},
-    {id: 2, name: '', pros: [''], cons: ['']},
+    {id: getUUID(), name: '', pros: [''], cons: ['']},
+    {id: getUUID(), name: '', pros: [''], cons: ['']},
   ])
 
-  const handleCardUpdate = (updateCardData: any) => {
-    
+  const handleUpdateQuestion = (value: string) => {
+    setQuestion(value);
+  }
+
+  const handleUpdateContext = (value: string) => {
+    setContext(value);
+  }
+
+  const handleUpdateOption = (option: any) => {
+    setOptions((prev) => prev.map((opt) => 
+      opt.id === option.id ? {
+        ...opt, 
+        name: option.name,
+        pros: option.pros,
+        cons: option.cons,
+      } : opt
+    ))
   }
 
   const handleCardRemove = (id: any) => {
+    console.log(options.map(opt => opt.id));
     if (options.length > 2) {
-      setOptions((prev) => prev.filter((opt: any) => opt.id != id))
+      setOptions((prev) => prev.filter((opt: any) => opt.id !== id))
     }
   }
 
   const addOption = () => {
     const newCard = {
-      id: options.length + 1,
+      id: getUUID(),
       name: '',
       pros: [''],
       cons: ['']
     }
     setOptions((prev) => [...prev, newCard])
+  }
+
+  const analyzeData = () => {
+    const fullData = {
+      question: question.trim(),
+      context: context.trim(),
+      options: options
+    }
+    console.log('Full Data:', fullData)
   }
 
   return (
@@ -49,7 +77,9 @@ export default function InputCard() {
           </div>
         </div>
         <div>
-          <Input placeholder='What decision do you need to make?'/>
+          <Input placeholder='What decision do you need to make?'
+            onChange={(event) => handleUpdateQuestion(event.target.value)}
+          />
         </div>
       </Card>
       <Card className='m-5 p-3 gap-8 sm:p-5'>
@@ -57,25 +87,32 @@ export default function InputCard() {
           <Sparkles className='w-7 h-7'/>
           <h1 className='text-xl font-semibold'>Additional Context</h1>
         </div>
-        <Textarea placeholder="Share any constraints, priorities, or context that might influence this decision..."/>
+        <Textarea placeholder="Share any constraints, priorities, or context that might influence this decision..."
+          onChange={(event) => handleUpdateContext(event.target.value)}
+        />
       </Card>
       <div>
         {options.map((opt: any, index: number) => {
           return (
             <OptionCard 
-              key={opt.id} 
-              optNo={String.fromCharCode(65 + index)} 
+              key={opt.id}
+              index={index}
               opt={opt} 
               multiple={options.length > 2} 
               removeCard={() => handleCardRemove(opt.id)} 
-              onUpdate={handleCardUpdate}
+              onCardUpdate={(option: any) => handleUpdateOption(option)}
             />
           )
         })}
       </div>
       <div className='flex flex-row justify-center m-5 px-5 gap-8'>
-        <Button variant="outline" size="lg" onClick={addOption}>
+        <Button variant="outline" size="sm" onClick={() => addOption()}>
           <Plus/> Add Option
+        </Button>
+      </div>
+      <div className='flex flex-row justify-center m-5 px-5 gap-8'>
+        <Button variant="default" size="xl" onClick={() => analyzeData()}>
+          <Brain className='scale-125'/> Analyze
         </Button>
       </div>
     </>

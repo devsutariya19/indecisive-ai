@@ -5,13 +5,30 @@ import { Card } from './ui/card'
 import { Input } from './ui/input'
 import { OptionData } from '@/types/OptionData'
 
-export default function OptionCard({optNo, opt, multiple, removeCard, onUpdate}: any) {
+export default function OptionCard({index, opt, multiple, removeCard, onCardUpdate}: any) {
+  const optNo = String.fromCharCode(65 + index);
   
+  const [name, setName] = useState<OptionData["name"]>(opt.name)
   const [pros, setPros] = useState<OptionData["pros"]>(opt.pros)
   const [cons, setCons] = useState<OptionData["cons"]>(opt.cons)
 
-  const handleChange = (event: any) => {
-    console.log(event)
+  const handleProChange = (value: string, index: number) => {
+    const tempPros = [...pros];
+    tempPros[index] = value.trim()
+    setPros(tempPros)
+    onCardUpdate({index: index, id: opt.id, name: name, pros: tempPros, cons: cons})
+  }
+
+  const handleConChange = (value: string, index: number) => {
+    const tempCons = [...cons];
+    tempCons[index] = value.trim()
+    setCons(tempCons)
+    onCardUpdate({index: index, id: opt.id, name: name, pros: pros, cons: tempCons})
+  }
+
+  const handleNameChange = (value: string) => {
+    setName(value.trim());
+    onCardUpdate({index: index, id: opt.id, name: value, pros: pros, cons: cons})
   }
 
   const addPro = () => {
@@ -43,35 +60,37 @@ export default function OptionCard({optNo, opt, multiple, removeCard, onUpdate}:
       <Card className='m-5 p-3 gap-3 sm:p-5'>
 
         <div className='flex flex-row gap-4'>
-          <div className="bg-cyan-800 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+          <div className="bg-emerald-900 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
             {optNo}
           </div>
           <input placeholder={`Option ${optNo} name`} 
-            className='text-lg font-medium bg-transparent border-none text-white placeholder-gray-400 focus:outline-none flex-1'/>
+            className='text-lg font-medium bg-transparent border-none text-white placeholder-gray-400 focus:outline-none flex-1'
+            onChange={(event) => handleNameChange(event.target.value)}
+          />
           
           {multiple && (
-            <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={handleCardRemove}/>
+            <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={() => handleCardRemove()}/>
           )}
         </div>
 
         <Card className='m-1 p-5 gap-3 items-start'>
           <div className='flex flex-row gap-2 items-center'>
-            <Circle className='w-3 h-3 bg-emerald-800 dark:bg-emerald-400 rounded-full'/>
+            <Circle className='w-3 h-3 bg-emerald-800 dark:bg-emerald-500 rounded-full'/>
             <span>Pros</span>
           </div>
 
           {pros.map((pro: any, index: any) => {
             return (
-              <div key={`p${index}`} className='flex w-full items-center gap-2'>
-                <Input placeholder='Add a positive aspect' onChange={handleChange}/>
+              <div key={`${optNo}p${index}`} className='flex w-full items-center gap-2'>
+                <Input placeholder='Add a positive aspect' onChange={(event) => handleProChange(event.target.value, index)}/>
                 {pros.length > 1 && (
-                  <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={(event) => removePro(index)}/>
+                  <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={() => removePro(index)}/>
                 )}
               </div>
             )
           })}
 
-          <Button variant="link" className='!px-0 hover:cursor-pointer' onClick={addPro}>
+          <Button variant="link" className='!px-0 hover:cursor-pointer' onClick={() => addPro()}>
             <Plus className='w-5 h-5'/>
             <span>Add Pro</span>
           </Button>
@@ -79,22 +98,22 @@ export default function OptionCard({optNo, opt, multiple, removeCard, onUpdate}:
 
         <Card className='m-1 p-5 gap-3 items-start'>
           <div className='flex flex-row gap-2 items-center'>
-            <Circle className='w-3 h-3 bg-red-800 dark:bg-red-400 rounded-full'/>
+            <Circle className='w-3 h-3 bg-red-800 dark:bg-red-500 rounded-full'/>
             <span>Cons</span>
           </div>
 
           {cons.map((con: any, index: any) => {
             return (
-              <div key={`c${index}`} className='flex w-full items-center gap-2'>
-                <Input placeholder='Add a positive aspect' onChange={handleChange}/>
+              <div key={`${optNo}c${index}`} className='flex w-full items-center gap-2'>
+                <Input placeholder='Add a positive aspect' onChange={(event) => handleConChange(event.target.value, index)}/>
                 {cons.length > 1 && (
-                  <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={(event) => removeCon(index)}/>
+                  <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={() => removeCon(index)}/>
                 )}
               </div>
             )
           })}
 
-          <Button variant="link" className='!px-0 hover:cursor-pointer' onClick={addCon}>
+          <Button variant="link" className='!px-0 hover:cursor-pointer' onClick={() => addCon()}>
             <Plus className='w-5 h-5'/>
             <span>Add Con</span>
           </Button>
