@@ -19,7 +19,7 @@ export default function RootLayout({
               <main>
                 <div className="flex flex-row justify-between p-3 sticky z-50 top-0 sm:bg-transparent bg-background">
                   <SidebarTrigger/>
-                  <DarkModeToggle/>
+                  {/* <DarkModeToggle/> */}
                 </div>
                 <div className='xl:mx-40 sm:mx-10 mt-5 mb-20'>
                   {children}

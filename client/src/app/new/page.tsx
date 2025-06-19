@@ -7,8 +7,10 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { getUUID } from '@/lib/utils'
 import { OptionData } from '@/types/OptionData'
+import { v4 as uuidv4 } from 'uuid';
 import { Brain, BrainCircuit, Plus, Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
+import { askGenai } from '@/lib/data'
 
 export default function InputCard() {
 
@@ -39,7 +41,6 @@ export default function InputCard() {
   }
 
   const handleCardRemove = (id: any) => {
-    console.log(options.map(opt => opt.id));
     if (options.length > 2) {
       setOptions((prev) => prev.filter((opt: any) => opt.id !== id))
     }
@@ -55,13 +56,16 @@ export default function InputCard() {
     setOptions((prev) => [...prev, newCard])
   }
 
-  const analyzeData = () => {
+  const analyzeData = async () => {
     const fullData = {
+      id: uuidv4(),
       question: question.trim(),
       context: context.trim(),
       options: options
     }
     console.log('Full Data:', fullData)
+    let response = await askGenai("Tell me a short joke about Go programming");
+    console.log("Response:", response)
   }
 
   return (

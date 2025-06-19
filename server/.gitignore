@@ -1,0 +1,75 @@
+# Backend .gitignore (Go)
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Air (live reload tool)
+tmp/
+.air.toml
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Configuration files with secrets
+config.yaml
+config.json
+.env
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Docker
+Dockerfile.dev
+docker-compose.dev.yml
+
+# Build artifacts
+/bin/
+/pkg/
+/dist/
+
+# Testing
+coverage.out
+coverage.html
+
+# Generated files
+*.pb.go
+*_gen.go
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# Local development
+local.env
+dev.env
