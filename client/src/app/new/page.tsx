@@ -8,11 +8,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { getUUID } from '@/lib/utils'
 import { OptionData } from '@/types/OptionData'
 import { v4 as uuidv4 } from 'uuid';
-import { Brain, BrainCircuit, Plus, Sparkles } from 'lucide-react'
-import React, { useState } from 'react'
+import { Brain, BrainCircuit, Plus, Sparkles, Zap } from 'lucide-react'
+import React, { useMemo, useState } from 'react'
 import { askGenai } from '@/lib/data'
+import { useRouter } from 'next/navigation'
+import GenaiThinking from '@/components/genai-thinking'
 
 export default function InputCard() {
+
+  const router = useRouter()
 
   const [question, setQuestion] = useState("")
   const [context, setContext] = useState("")
@@ -20,6 +24,8 @@ export default function InputCard() {
     {id: getUUID(), name: '', pros: [''], cons: ['']},
     {id: getUUID(), name: '', pros: [''], cons: ['']},
   ])
+
+  const [isLoadingResponse, setIsLoadingResponse] = useState(false);
 
   const handleUpdateQuestion = (value: string) => {
     setQuestion(value);
@@ -56,7 +62,22 @@ export default function InputCard() {
     setOptions((prev) => [...prev, newCard])
   }
 
+  const isValid = useMemo(() => {
+    if (!question.trim() || !context.trim()) return false;
+    if (!Array.isArray(options) || options.length === 0) return false;
+
+    for (const option of options) {
+      if (!option.name.trim()) return false;
+      if (!option.pros.every(p => p.trim() !== '')) return false;
+      if (!option.cons.every(c => c.trim() !== '')) return false;
+    }
+
+    return true;
+  }, [question, context, options])
+
   const analyzeData = async () => {
+    setIsLoadingResponse(true);
+
     const fullData = {
       id: uuidv4(),
       question: question.trim(),
@@ -64,16 +85,37 @@ export default function InputCard() {
       options: options
     }
     console.log('Full Data:', fullData)
-    let response = await askGenai("Tell me a short joke about Go programming");
+    let response = await askGenai(`
+      Analyze this decision: "${fullData.question}"
+
+      Additional Context: "${fullData.context}"
+
+      Options:
+      ${fullData.options.map(opt => {`
+        ${opt.name}:
+        Pros: ${opt.pros.join(', ')}
+        Cons: ${opt.cons.join(', ')}
+      `}).join('\n')}
+    `);
     console.log("Response:", response)
+
+    const decision = {
+      prompt: fullData,
+      response: response,
+    }
+
+    sessionStorage.setItem(`genai-response-${fullData.id}`, JSON.stringify(decision))
+    
+    router.push(`decision/${fullData.id}`)
   }
 
   return (
-    <> 
+    <div>
+      <GenaiThinking className="absolute min-h-screen inset-0 backdrop-brightness-50" isVisible={isLoadingResponse}/>
       <Card className="m-5 p-3 gap-8 sm:p-5">
-        <div className='flex flex-row gap-4'>
-          <div className='w-14 h-14 bg-gradient-to-r from-emerald-600 dark:from-emerald-500 to-blue-700 rounded-xl flex flex-row items-center justify-center'>
-            <BrainCircuit className='w-8 h-8 text-white'/>
+        <div className='flex flex-row items-center gap-4'>
+          <div className='w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex flex-row items-center justify-center'>
+            <Zap className='w-6 h-6 text-white'/>
           </div>
           <div>
             <h1 className='text-2xl font-bold mb-1'>What's been on your mind?</h1>
@@ -110,15 +152,15 @@ export default function InputCard() {
         })}
       </div>
       <div className='flex flex-row justify-center m-5 px-5 gap-8'>
-        <Button variant="outline" size="sm" onClick={() => addOption()}>
+        <Button variant="outline" size="sm" onClick={() => addOption()} className='hover:cursor-pointer'>
           <Plus/> Add Option
         </Button>
       </div>
       <div className='flex flex-row justify-center m-5 px-5 gap-8'>
-        <Button variant="default" size="xl" onClick={() => analyzeData()}>
+        <Button type="button" variant="default" size="xl" onClick={() => analyzeData()} disabled={!isValid}>
           <Brain className='scale-125'/> Analyze
         </Button>
       </div>
-    </>
+    </div>
   )
 }

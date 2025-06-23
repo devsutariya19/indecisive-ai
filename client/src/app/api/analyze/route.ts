@@ -1,10 +1,11 @@
+import { API_ENDPOINTS } from "@/lib/constants";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const reqData = await request.json();
 
-    const response = await fetch(`http://localhost:8080/api/genai`, {
+    const response = await fetch(`${API_ENDPOINTS.GENAI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

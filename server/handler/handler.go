@@ -1,26 +1,22 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"llm-api/genai"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-// type Option struct {
-// 	id   string   `json:"id"`
-// 	name string   `json:"name"`
-// 	pros []string `json:"pros"`
-// 	cons []string `json:"cons"`
-// }
-
-// type Decision struct {
-// 	id       string   `json:"id"`
-// 	question string   `json:"question"`
-// 	context  string   `json:"context"`
-// 	options  []Option `json:"options"`
-// }
+type GenaiResponse struct {
+	Question          string `json:"question"`
+	RecommendedChoice string `json:"recommended_choice"`
+	Confidence        int    `json:"confidence"`
+	ReasonFor         string `json:"reason_for"`
+	ReasonAgainst     string `json:"reason_against"`
+}
 
 type PromptRequest struct {
 	Prompt string `json:"prompt" binding:"required"`
@@ -33,11 +29,31 @@ func GetGenaiResponse(c *gin.Context) {
 		return
 	}
 
-	r := genai.PromptGenai(promptRequest.Prompt)
-	fmt.Println(r)
+	prompt := fmt.Sprintf(`
+		%s
+
+		Please recommend the best option.
+	`, promptRequest.Prompt)
+
+	r := genai.PromptGenai(prompt)
+	fmt.Println("Response:" + cleanJSONResponse(r))
+
+	var response GenaiResponse
+	if err := json.Unmarshal([]byte(cleanJSONResponse(r)), &response); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "success",
-		"result": r,
+		"result": response,
 	})
+}
+
+func cleanJSONResponse(raw string) string {
+	raw = strings.TrimSpace(raw)
+	raw = strings.TrimPrefix(raw, "```json")
+	raw = strings.TrimPrefix(raw, "```")
+	raw = strings.TrimSuffix(raw, "```")
+	return strings.TrimSpace(raw)
 }

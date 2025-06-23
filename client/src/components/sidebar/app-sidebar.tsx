@@ -14,7 +14,7 @@ export function AppSidebar() {
   return (    
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <NavHeader></NavHeader>
+        <NavHeader/>
       </SidebarHeader>
       <SidebarContent>
         <NavMain/>

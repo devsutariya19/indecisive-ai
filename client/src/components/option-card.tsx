@@ -28,7 +28,7 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
 
   const handleNameChange = (value: string) => {
     setName(value.trim());
-    onCardUpdate({index: index, id: opt.id, name: value, pros: pros, cons: cons})
+    onCardUpdate({index: index, id: opt.id, name: value.trim(), pros: pros, cons: cons})
   }
 
   const addPro = () => {
@@ -60,10 +60,10 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
       <Card className='m-5 p-3 gap-3 sm:p-5'>
 
         <div className='flex flex-row gap-4'>
-          <div className="bg-emerald-900 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+          <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
             {optNo}
           </div>
-          <input placeholder={`Option ${optNo} name`} 
+          <input placeholder={`Option ${optNo} Name`} 
             className='text-lg font-medium bg-transparent border-none text-white placeholder-gray-400 focus:outline-none flex-1'
             onChange={(event) => handleNameChange(event.target.value)}
           />
@@ -75,7 +75,7 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
 
         <Card className='m-1 p-5 gap-3 items-start'>
           <div className='flex flex-row gap-2 items-center'>
-            <Circle className='w-3 h-3 bg-emerald-800 dark:bg-emerald-500 rounded-full'/>
+            <Circle className='w-3 h-3 bg-emerald-500 text-emerald-500 rounded-full'/>
             <span>Pros</span>
           </div>
 
@@ -98,7 +98,7 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
 
         <Card className='m-1 p-5 gap-3 items-start'>
           <div className='flex flex-row gap-2 items-center'>
-            <Circle className='w-3 h-3 bg-red-800 dark:bg-red-500 rounded-full'/>
+            <Circle className='w-3 h-3 bg-red-500 text-red-500 rounded-full'/>
             <span>Cons</span>
           </div>
 
