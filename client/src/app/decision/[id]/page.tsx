@@ -47,9 +47,9 @@ export default function DecisionResults() {
             </AccordionTrigger>
             <AccordionContent>
               <div className='border-t border-slate-700/50 mt-2'>
-                <Card className='p-5 my-5'>
-                  <span className='font-bold text-xl text-left'>{prompt?.question}</span>
-                </Card>
+                <div className='flex justify-center mt-5 p-2'>
+                  <span className='font-bold text-2xl text-left'>{prompt?.question}</span>
+                </div>
                 
                 <Card className='p-5 my-5'>
                   <div className='flex flex-row gap-2 items-center'>
@@ -113,7 +113,7 @@ export default function DecisionResults() {
 
         <ConfidenceChart confidence={response?.confidence}/>
 
-        <Card className='p-5'>
+        <Card className='p-5 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/30'>
           <div className='flex justify-center'>
             <span className='font-extrabold text-2xl'>{response?.recommended_choice}</span>
           </div>
