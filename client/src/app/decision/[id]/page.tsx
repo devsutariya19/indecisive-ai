@@ -48,7 +48,7 @@ export default function DecisionResults() {
             <AccordionContent>
               <div className='border-t border-slate-700/50 mt-2'>
                 <div className='flex justify-center mt-5 p-2'>
-                  <span className='font-bold text-2xl text-left'>{prompt?.question}</span>
+                  <span className='font-bold text-2xl text-center'>{prompt?.question}</span>
                 </div>
                 
                 <Card className='p-5 my-5'>
