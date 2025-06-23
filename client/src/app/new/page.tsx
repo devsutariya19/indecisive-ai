@@ -112,7 +112,7 @@ export default function InputCard() {
   return (
     <div>
       <GenaiThinking className="absolute min-h-screen inset-0 backdrop-brightness-50" isVisible={isLoadingResponse}/>
-      <Card className="m-5 p-3 gap-8 sm:p-5">
+      <Card className="m-5 p-3 gap-6 sm:p-5">
         <div className='flex flex-row items-center gap-4'>
           <div className='w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex flex-row items-center justify-center'>
             <Zap className='w-6 h-6 text-white'/>
@@ -128,7 +128,7 @@ export default function InputCard() {
           />
         </div>
       </Card>
-      <Card className='m-5 p-3 gap-8 sm:p-5'>
+      <Card className='m-5 p-3 gap-6 sm:p-5'>
         <div className='flex flex-row gap-4'>
           <Sparkles className='w-7 h-7'/>
           <h1 className='text-xl font-semibold'>Additional Context</h1>
