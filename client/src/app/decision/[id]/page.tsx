@@ -4,13 +4,11 @@ import ConfidenceChart from '@/components/confidence-chart'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { GenaiResponse } from '@/types/GenaiResponse'
 import { Option, UserPrompt } from '@/types/UserPrompt'
 import { Circle, CircleCheckBig, Dot, MessageCircleQuestion, Plus, TriangleAlert } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { RadialBar, RadialBarChart } from 'recharts'
 
 export default function DecisionResults() {
   const {id} = useParams()
@@ -62,7 +60,7 @@ export default function DecisionResults() {
                 <div className='flex flex-col gap-6'>
                   {prompt?.options.map((option: Option) => {
                     return (
-                      <Card key={`r-${option.id}`} className='p-5 gap-3'>
+                      <Card key={`r-${option.id}`} className='p-5 gap-2'>
                         <div className='flex flex-row gap-2 items-center'>
                           <Circle className='w-3 h-3 mx-0.5 bg-blue-800 dark:bg-blue-500 text-blue-500 rounded-full'/>
                           <span className='font-bold text-lg'>{option.name}</span>

@@ -3,7 +3,9 @@ package main
 import (
 	"llm-api/genai"
 	"llm-api/handler"
+	ratelimiter "llm-api/rate-limiter"
 	"net/http"
+	"strings"
 
 	"net/http/httputil"
 	"net/url"
@@ -13,25 +15,35 @@ import (
 
 func main() {
 	router := gin.Default()
+	router.SetTrustedProxies(nil)
 
 	nextjsUrl, _ := url.Parse("http://localhost:3000")
 	proxy := httputil.NewSingleHostReverseProxy(nextjsUrl)
 
 	api := router.Group("/api")
-
-	api.GET("/health", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"status":  "ok",
-			"service": "gemini-api",
-		})
-	})
+	api.Use(ratelimiter.RateLimiterService("8-M", "200-D"))
 
 	api.POST("/genai", func(ctx *gin.Context) {
 		handler.GetGenaiResponse(ctx)
 	})
 
+	router.GET("/health", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"status":  "ok",
+			"service": "genai-api",
+		})
+	})
+
 	router.NoRoute(func(ctx *gin.Context) {
-		proxy.ServeHTTP(ctx.Writer, ctx.Request)
+		path := ctx.Request.URL.Path
+		origin := ctx.GetHeader("Origin")
+
+		if strings.Contains(origin, "localhost:3000") && strings.HasPrefix(path, "/api/") {
+			proxy.ServeHTTP(ctx.Writer, ctx.Request)
+			return
+		}
+
+		ctx.Status(http.StatusNotFound)
 	})
 
 	genai.InitializeGenai()

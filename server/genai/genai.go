@@ -20,7 +20,7 @@ var (
 )
 
 func InitializeGenai() *GenaiService {
-	err := godotenv.Load(".env.local")
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Err loading .env file")
 	}
@@ -49,7 +49,7 @@ func PromptGenai(prompt string) string {
 
 			Please respond ONLY with the following, in this exact format:
 			Question: <original question asked>
-			Recommended Choice: <option name>
+			Recommended Choice: <option name from list>
 			Confidence: <number between 0-100>%%
 			Reason For: <two short sentences explaining why>
 			Reason Against: <two short sentences explaining why not>

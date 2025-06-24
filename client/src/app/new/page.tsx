@@ -8,14 +8,14 @@ import { Textarea } from '@/components/ui/textarea'
 import { getUUID } from '@/lib/utils'
 import { OptionData } from '@/types/OptionData'
 import { v4 as uuidv4 } from 'uuid';
-import { Brain, BrainCircuit, Plus, Sparkles, Zap } from 'lucide-react'
+import { Brain, Plus, Sparkles, Zap } from 'lucide-react'
 import React, { useMemo, useState } from 'react'
 import { askGenai } from '@/lib/data'
 import { useRouter } from 'next/navigation'
 import GenaiThinking from '@/components/genai-thinking'
+import { toast } from "sonner"
 
 export default function InputCard() {
-
   const router = useRouter()
 
   const [question, setQuestion] = useState("")
@@ -76,51 +76,56 @@ export default function InputCard() {
   }, [question, context, options])
 
   const analyzeData = async () => {
-    setIsLoadingResponse(true);
-
-    const fullData = {
-      id: uuidv4(),
-      question: question.trim(),
-      context: context.trim(),
-      options: options
+    try {
+      setIsLoadingResponse(true);
+  
+      const fullData = {
+        id: uuidv4(),
+        question: question.trim(),
+        context: context.trim(),
+        options: options
+      }
+  
+      console.log('Full Data:', fullData)
+  
+      let response = await askGenai(`
+        Analyze this decision: "${fullData.question}"
+        Additional Context: "${fullData.context}"
+  
+        Options:
+        ${fullData.options.map(opt => {`
+          ${opt.name}:
+          Pros: ${opt.pros.join(', ')}
+          Cons: ${opt.cons.join(', ')}
+        `}).join('\n')}
+      `);
+  
+      console.log("Response:", response)
+      const decision = {
+        prompt: fullData,
+        response: response,
+      }
+  
+      sessionStorage.setItem(`genai-response-${fullData.id}`, JSON.stringify(decision))
+      
+      router.push(`decision/${fullData.id}`)
+    } catch (error: any) {
+      toast.error('Request Error', {
+        description: error.message,
+      })
     }
-    console.log('Full Data:', fullData)
-    let response = await askGenai(`
-      Analyze this decision: "${fullData.question}"
-
-      Additional Context: "${fullData.context}"
-
-      Options:
-      ${fullData.options.map(opt => {`
-        ${opt.name}:
-        Pros: ${opt.pros.join(', ')}
-        Cons: ${opt.cons.join(', ')}
-      `}).join('\n')}
-    `);
-    console.log("Response:", response)
-
-    const decision = {
-      prompt: fullData,
-      response: response,
-    }
-
-    sessionStorage.setItem(`genai-response-${fullData.id}`, JSON.stringify(decision))
     
-    router.push(`decision/${fullData.id}`)
   }
 
   return (
     <div>
-      <GenaiThinking className="absolute min-h-screen inset-0 backdrop-brightness-50" isVisible={isLoadingResponse}/>
+      <GenaiThinking className="fixed min-h-screen inset-0 backdrop-brightness-50" isVisible={isLoadingResponse}/>
       <Card className="m-5 p-3 gap-6 sm:p-5">
         <div className='flex flex-row items-center gap-4'>
-          <div className='w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex flex-row items-center justify-center'>
-            <Zap className='w-6 h-6 text-white'/>
+          <div className='w-9 h-9 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-md flex flex-row items-center justify-center'>
+            <Zap className='w-5 h-5 text-white'/>
           </div>
-          <div>
-            <h1 className='text-2xl font-bold mb-1'>What's been on your mind?</h1>
-            <p className='text-sm'>Share the main question that you need answered.</p>
-          </div>
+          <h1 className='text-2xl font-bold mb-1'>What's been on your mind?</h1>
         </div>
         <div>
           <Input placeholder='What decision do you need to make?'

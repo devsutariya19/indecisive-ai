@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DarkModeToggle } from "@/components/dark-mode-toggle";
 import { BrainCircuit } from "lucide-react";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -26,12 +27,16 @@ export default function RootLayout({
                       <div className='w-14 h-14 bg-gradient-to-br from-emerald-600 dark:from-emerald-500 to-blue-700 rounded-xl flex flex-row items-center justify-center'>
                         <BrainCircuit className='w-8 h-8 text-white'/>
                       </div>
-                      <div className='text-2xl font-bold mb-1'>Indecisive AI</div>
+                      <div className="flex flex-col">
+                        <div className='text-2xl font-bold mb-1'>Indecisive AI</div>
+                        <p className='text-sm text-slate-200'>AI powered decision engine</p>
+                      </div>
                     </div>
                   </a>
                 </div>
                 <div className='mt-5 mb-20'>
                   {children}
+                  <Toaster position="top-center" richColors/>
                 </div>
               </main>
             </SidebarInset>
