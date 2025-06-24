@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { GenaiResponse } from '@/types/GenaiResponse'
 import { Option, UserPrompt } from '@/types/UserPrompt'
-import { Circle, CircleCheckBig, Dot, MessageCircleQuestion, Plus, TriangleAlert } from 'lucide-react'
+import { Circle, CircleCheckBig, Dot, Info, MessageCircleQuestion, Plus, TriangleAlert } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -139,12 +139,27 @@ export default function DecisionResults() {
             <TriangleAlert className='w-7 h-7 text-white'/>
           </div>
           <div className='flex flex-col text-left'>
-            <h3 className='text-2xl font-bold text-white'>Things to Consider</h3>
+            <h3 className='text-2xl font-bold text-white'>Potential Drawbacks</h3>
           </div>
         </div>
 
         <div className='border-l-4 rounded-l-md border-amber-500 px-4'>
           <span>{response?.reason_against}</span>
+        </div>
+      </Card>
+
+      <Card className='m-5 px-5'>
+        <div className='flex flex-row gap-5 items-center'>
+          <div className='w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex flex-row items-center justify-center'>
+            <Info className='w-7 h-7 text-white'/>
+          </div>
+          <div className='flex flex-col text-left'>
+            <h3 className='text-2xl font-bold text-white'>Things to Consider</h3>
+          </div>
+        </div>
+
+        <div className='border-l-4 rounded-l-md border-cyan-500 px-4'>
+          <span>{response?.key_considerations}</span>
         </div>
       </Card>
 

@@ -27,7 +27,7 @@ func main() {
 		handler.GetGenaiResponse(ctx)
 	})
 
-	router.GET("/health", func(ctx *gin.Context) {
+	api.GET("/health", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"status":  "ok",
 			"service": "genai-api",

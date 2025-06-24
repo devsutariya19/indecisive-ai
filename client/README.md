@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend 🎨
 
-## Getting Started
+The Main Decision Maker - built with Next.js
 
-First, run the development server:
+## Built with the good stuff
+
+- **Next.js 15**
+- **TypeScript**
+- **Tailwind CSS**
+- **shadcn/ui**
+
+## Getting started
 
 ```bash
+# Install the things
+npm install
+
+# Fire it up
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` and you're golden.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What's inside
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Decision Form** - Where the magic starts
+- **Option Cards** - Lay out all of your options
+- **Results Panel** - AI wisdom with your decisions
 
-## Learn More
+## The experience
 
-To learn more about Next.js, take a look at the following resources:
+Users type in their dilemma, add some options with pros and cons, hit submit, and get back some AI-powered insights. No PhD in decision science required.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The whole thing is responsive, so it works just as well on your phone when you're stress-deciding what to eat for lunch.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts you might need
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` - Development mode
+- `npm run build` - Make it production ready
+- `npm run lint` - Find the mistakes you didn't know you made

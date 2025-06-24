@@ -16,6 +16,7 @@ type GenaiResponse struct {
 	Confidence        int    `json:"confidence"`
 	ReasonFor         string `json:"reason_for"`
 	ReasonAgainst     string `json:"reason_against"`
+	KeyConsiderations string `json:"key_considerations"`
 }
 
 type PromptRequest struct {

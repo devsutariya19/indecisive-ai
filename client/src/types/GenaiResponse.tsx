@@ -4,4 +4,5 @@ export interface GenaiResponse {
   confidence: number
   reason_for: string
   reason_against: string
+  key_considerations: string
 }
