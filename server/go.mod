@@ -1,4 +1,4 @@
-module llm-api
+module genai-api
 
 go 1.24.4
 

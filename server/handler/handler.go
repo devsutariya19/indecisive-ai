@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"llm-api/genai"
+	"genai-api/genai"
 	"net/http"
 	"strings"
 

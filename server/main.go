@@ -1,9 +1,9 @@
 package main
 
 import (
-	"llm-api/genai"
-	"llm-api/handler"
-	ratelimiter "llm-api/rate-limiter"
+	"genai-api/genai"
+	"genai-api/handler"
+	ratelimiter "genai-api/rate-limiter"
 	"net/http"
 	"strings"
 

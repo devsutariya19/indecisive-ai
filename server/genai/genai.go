@@ -2,7 +2,7 @@ package genai
 
 import (
 	"context"
-	"llm-api/constants"
+	"genai-api/constants"
 	"log"
 	"os"
 
