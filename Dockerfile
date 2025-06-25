@@ -4,6 +4,7 @@ WORKDIR /app/client
 COPY client/package*.json ./
 COPY client/tsconfig.json ./
 COPY client/next.config.json ./
+COPY client/components.json ./
 RUN npm install --only=production
 COPY client/ .
 RUN npm run build
