@@ -7,10 +7,11 @@ COPY client/ .
 RUN npm run build
 
 # Go backend
-FROM golang:1.21-alpine AS backend-builder
+FROM golang:1.24-alpine AS backend-builder
 WORKDIR /app/server
 COPY server/go.mod server/go.sum ./
-RUN go mod download
+RUN go env
+RUN go mod download -x
 COPY server/ .
 RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
