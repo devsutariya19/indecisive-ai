@@ -1,8 +1,8 @@
 module.exports = {
   apps: [
     {
-      name: 'nextjs',
-      cwd: './frontend',
+      name: 'indecisive-ai',
+      cwd: './client',
       script: 'npm',
       args: 'start',
       env: {
@@ -12,8 +12,8 @@ module.exports = {
       }
     },
     {
-      name: 'gin-backend',
-      cwd: './backend',
+      name: 'genai-api',
+      cwd: './server',
       script: './main',
       env: {
         PORT: 8080,
