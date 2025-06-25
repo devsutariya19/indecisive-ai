@@ -110,6 +110,7 @@ export default function InputCard() {
       
       router.push(`decision/${fullData.id}`)
     } catch (error: any) {
+      setIsLoadingResponse(false)
       toast.error('Request Error', {
         description: error.message,
       })
