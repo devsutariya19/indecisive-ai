@@ -22,10 +22,7 @@ WORKDIR /app
 RUN npm install -g pm2
 
 # Copy built Next.js app
-COPY --from=frontend-builder /app/client/.next ./client/.next
-COPY --from=frontend-builder /app/client/public ./client/public
-COPY --from=frontend-builder /app/client/package.json ./client/
-COPY --from=frontend-builder /app/client/node_modules ./client/node_modules
+COPY --from=frontend-builder /app/client ./client
 
 # Copy built Go binary
 COPY --from=backend-builder /app/server/main ./server/
