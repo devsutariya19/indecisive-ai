@@ -7,7 +7,12 @@ COPY client/next.config.ts ./
 COPY client/components.json ./
 COPY client/postcss.config.mjs ./
 RUN npm install --only=production
+
+RUN npm install --save-dev ts-node typescript @swc/core @swc/register
+
 COPY client/ .
+
+ENV NODE_OPTIONS="--require ts-node/register --require @swc/register"
 RUN npm run build
 
 # Go backend
