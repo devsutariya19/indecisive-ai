@@ -3,8 +3,9 @@ FROM node:18-alpine AS frontend-builder
 WORKDIR /app/client
 COPY client/package*.json ./
 COPY client/tsconfig.json ./
-COPY client/next.config.json ./
+COPY client/next.config.ts ./
 COPY client/components.json ./
+COPY client/postcss.config.mjs ./
 RUN npm install --only=production
 COPY client/ .
 RUN npm run build
