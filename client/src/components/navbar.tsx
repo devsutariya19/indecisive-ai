@@ -23,12 +23,14 @@ export default function Navbar() {
 
   useEffect(() => {
     const getHealthStatus = async () => {
-      const health: any = await getHealth();
-      setHealthStatus(health.health)
+      await getHealth().then((health: any) => {
+        setHealthStatus(health.health)
+      }).catch((err: any) => {
+        setHealthStatus(err.health)
+      });
     }
     
     getHealthStatus()
-    getHealthColor()
   }, [])
   
   const getHealthColor = () => {

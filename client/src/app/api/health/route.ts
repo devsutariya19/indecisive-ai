@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { message: 'Unable to connect to health service' },
-      { status: 502 }
+      { status: http.BAD_GATEWAY }
     );
   }
 }

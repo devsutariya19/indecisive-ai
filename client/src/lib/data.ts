@@ -51,7 +51,7 @@ export async function getHealth() {
       const data = await response.json()
       resolve(data);
     } catch (err) {
-      reject({error: err});
+      reject({error: err, health: 'Offline'});
     }
   })
 }

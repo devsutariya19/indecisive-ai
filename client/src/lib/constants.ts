@@ -8,5 +8,6 @@ export const API_ENDPOINTS = {
 export const http = {
   TOO_MANY_REQUESTS: 429,
   INTERNAL_SERVER_ERROR: 500,
+  BAD_GATEWAY: 502,
   BAD_REQUEST: 400
 }
