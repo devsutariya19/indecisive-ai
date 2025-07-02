@@ -36,15 +36,20 @@ func main() {
 		path := ctx.Request.URL.Path
 		host := ctx.Request.Host
 
+		if strings.HasPrefix(path, "/api/") {
+			ctx.Status(http.StatusNotFound)
+			return
+		}
+
+		if strings.Contains(host, ":8080") {
+			ctx.Status(http.StatusNotFound)
+			return
+		}
+
 		nextjsUrl := "http://" + host
 		proxyUrl, err := url.Parse(nextjsUrl)
 		if err != nil {
 			ctx.Status(http.StatusInternalServerError)
-			return
-		}
-
-		if strings.HasPrefix(path, "/api/") {
-			ctx.Status(http.StatusNotFound)
 			return
 		}
 
