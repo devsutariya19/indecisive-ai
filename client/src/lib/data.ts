@@ -44,7 +44,7 @@ export async function getHealth() {
       
       if (!response.ok) {
         reject({
-          status: "Offline"
+          health: "Offline"
         })
       }
       
