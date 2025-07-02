@@ -36,3 +36,22 @@ export async function askGenai(prompt: any): Promise<any> {
     }
   })
 }
+
+export async function getHealth() {
+  return new Promise(async (resolve: any, reject: any) => {
+    try {
+      const response = await fetch(`/api/health`)
+      
+      if (!response.ok) {
+        reject({
+          status: "Offline"
+        })
+      }
+      
+      const data = await response.json()
+      resolve(data);
+    } catch (err) {
+      reject({error: err});
+    }
+  })
+}

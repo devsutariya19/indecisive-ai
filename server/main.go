@@ -29,7 +29,7 @@ func main() {
 
 	api.GET("/health", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"status":  "ok",
+			"health":  "Online",
 			"service": "genai-api",
 		})
 	})

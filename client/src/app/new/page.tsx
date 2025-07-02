@@ -85,9 +85,7 @@ export default function InputCard() {
         context: context.trim(),
         options: options
       }
-  
-      console.log('Full Data:', fullData)
-  
+
       let response = await askGenai(`
         Analyze this decision: "${fullData.question}"
         Additional Context: "${fullData.context}"
@@ -99,8 +97,7 @@ export default function InputCard() {
           Cons: ${opt.cons.join(', ')}
         `}).join('\n')}
       `);
-  
-      console.log("Response:", response)
+      
       const decision = {
         prompt: fullData,
         response: response,

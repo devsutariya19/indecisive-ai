@@ -1,7 +1,8 @@
 export const API_BASE = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : ''
 
 export const API_ENDPOINTS = {
-  GENAI: `${API_BASE}/api/genai`
+  GENAI: `${API_BASE}/api/genai`,
+  HEALTH: `${API_BASE}/api/health`
 }
 
 export const http = {

@@ -4,10 +4,12 @@ import { ArrowRight, BrainCircuit, Menu, X } from 'lucide-react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button';
+import { getHealth } from '@/lib/data';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [healthStatus, setHealthStatus] = useState();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,7 +20,36 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [])
+
+  useEffect(() => {
+    const getHealthStatus = async () => {
+      const health: any = await getHealth();
+      setHealthStatus(health.health)
+    }
+    
+    getHealthStatus()
+    getHealthColor()
+  }, [])
   
+  const getHealthColor = () => {
+    if (healthStatus == 'Online') {
+      return {
+        bg: 'bg-emerald-300',
+        text: 'text-emerald-400',
+        border_bg: 'bg-emerald-500/10',
+        border: 'border-emerald-500/10'
+      };
+    } else {
+      return {
+        bg: 'bg-red-300',
+        text: 'text-red-400',
+        border_bg: 'bg-red-500/10',
+        border: 'border-red-500/10'
+      };
+    }
+  }
+  const statusClass = getHealthColor();
+
   return (
     <div>
       <nav className={`fixed top-1 left-0 right-0 lg:mx-15 mx-5 z-50 transition-all duration-500 ease-out ${isScrolled ? 'py-2' : 'py-6'}`}>
@@ -49,10 +80,12 @@ export default function Navbar() {
             </div>
 
             <div className='md:flex md:flex-1 justify-end'>
-              <div className="md:flex sm:hidden hidden items-center px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
-                <span className="text-xs text-emerald-300 font-medium">Online</span>
-              </div>
+              {healthStatus && (
+                <div className={`md:flex sm:hidden hidden items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
+                  <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
+                  <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
+                </div>
+              )}
             </div>
             
             <Button type="button" variant="secondary" size="icon" className='md:hidden text-white hover:text-cyan-200 transition-colors duration-300 bg-transparent hover:bg-transparent'
@@ -70,10 +103,12 @@ export default function Navbar() {
                   New Decision
                   <ArrowRight className='scale-75'/> 
                 </Link>
-                <div className="flex items-center px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
-                  <span className="text-xs text-emerald-300 font-medium">Online</span>
-                </div>
+                {healthStatus && (
+                  <div className={`flex items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
+                    <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
+                    <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
+                  </div>
+                )}
               </div>
             </div>
           )}

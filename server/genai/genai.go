@@ -12,7 +12,6 @@ import (
 
 type GenaiService struct {
 	geminiClient *genai.Client
-	model        string
 }
 
 var (
@@ -21,10 +20,7 @@ var (
 )
 
 func InitializeGenai() *GenaiService {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Err loading .env file")
-	}
+	_ = godotenv.Load()
 
 	client, err := genai.NewClient(ctx, &genai.ClientConfig{
 		APIKey:  os.Getenv("GEMINI_API_KEY"),
