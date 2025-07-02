@@ -41,7 +41,7 @@ COPY --from=backend-builder /app/server/main ./server/
 COPY ecosystem.config.js .
 
 # Expose port
-EXPOSE 8080
+EXPOSE 3000 8080
 
 # Start both processes with PM2
 CMD ["pm2-runtime", "ecosystem.config.js"]

@@ -41,11 +41,6 @@ func main() {
 			return
 		}
 
-		if strings.Contains(host, ":8080") {
-			ctx.Status(http.StatusNotFound)
-			return
-		}
-
 		nextjsUrl := "http://" + host
 		proxyUrl, err := url.Parse(nextjsUrl)
 		if err != nil {
