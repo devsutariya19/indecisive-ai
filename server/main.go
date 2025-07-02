@@ -17,9 +17,6 @@ func main() {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
-	nextjsUrl, _ := url.Parse("http://localhost:3000")
-	proxy := httputil.NewSingleHostReverseProxy(nextjsUrl)
-
 	api := router.Group("/api")
 	api.Use(ratelimiter.RateLimiterService("8-M", "200-D"))
 
@@ -36,14 +33,21 @@ func main() {
 
 	router.NoRoute(func(ctx *gin.Context) {
 		path := ctx.Request.URL.Path
-		origin := ctx.GetHeader("Origin")
+		host := ctx.Request.Host
 
-		if strings.Contains(origin, "localhost:3000") && strings.HasPrefix(path, "/api/") {
-			proxy.ServeHTTP(ctx.Writer, ctx.Request)
+		nextjsUrl := "http://" + host
+		proxyUrl, err := url.Parse(nextjsUrl)
+		if err != nil {
+			ctx.Status(http.StatusInternalServerError)
 			return
 		}
 
-		ctx.Status(http.StatusNotFound)
+		if strings.HasPrefix(path, "/api/") {
+			return
+		}
+
+		proxy := httputil.NewSingleHostReverseProxy(proxyUrl)
+		proxy.ServeHTTP(ctx.Writer, ctx.Request)
 	})
 
 	genai.InitializeGenai()
