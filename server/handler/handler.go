@@ -37,7 +37,6 @@ func GetGenaiResponse(c *gin.Context) {
 	`, promptRequest.Prompt)
 
 	r := genai.PromptGenai(prompt)
-	fmt.Println("Response:" + cleanJSONResponse(r))
 
 	var response GenaiResponse
 	if err := json.Unmarshal([]byte(cleanJSONResponse(r)), &response); err != nil {
