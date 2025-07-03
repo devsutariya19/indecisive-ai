@@ -5,11 +5,9 @@ import (
 	"genai-api/handler"
 	ratelimiter "genai-api/rate-limiter"
 	"net/http"
-	"os"
-	"strings"
-
 	"net/http/httputil"
 	"net/url"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,18 +31,11 @@ func main() {
 	})
 
 	router.NoRoute(func(ctx *gin.Context) {
-		path := ctx.Request.URL.Path
-		host := ctx.Request.Host
+		nextjsUrl := "http://localhost:3000"
 
-		if strings.HasPrefix(path, "/api/") {
-			ctx.Status(http.StatusNotFound)
-			return
-		}
-
-		nextjsUrl := "http://" + host
 		proxyUrl, err := url.Parse(nextjsUrl)
 		if err != nil {
-			ctx.Status(http.StatusInternalServerError)
+			ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to set up reverse proxy"})
 			return
 		}
 

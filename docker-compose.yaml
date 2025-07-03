@@ -5,5 +5,7 @@ services:
       - "3000:3000"
       - "8080:8080"
     environment:
+      - NODE_ENV=production
       - GO_PORT=8080
+      - GIN_MODE=release
     command: ["sh", "-c", "/app/server/server & npm run start --prefix /app/client "]
