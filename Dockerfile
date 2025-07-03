@@ -32,8 +32,6 @@ WORKDIR /app
 COPY --from=client-build /app/client /app/client
 COPY --from=server-build /app/server/server /app/server/
 
-RUN ls -la /app/client/
-
 # Expose ports
 EXPOSE 3000 8080
 

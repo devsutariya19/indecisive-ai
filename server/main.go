@@ -5,6 +5,7 @@ import (
 	"genai-api/handler"
 	ratelimiter "genai-api/rate-limiter"
 	"net/http"
+	"os"
 	"strings"
 
 	"net/http/httputil"
@@ -53,5 +54,6 @@ func main() {
 
 	genai.InitializeGenai()
 
-	router.Run()
+	port := os.Getenv("PORT")
+	router.Run(":" + port)
 }
