@@ -9,7 +9,7 @@ import { getHealth } from '@/lib/data';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [healthStatus, setHealthStatus] = useState();
+  const [healthStatus, setHealthStatus] = useState('Offline');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,12 +86,10 @@ export default function Navbar() {
                 Get Started
                 <ArrowRight className='scale-95'/> 
               </Button>
-              {healthStatus && (
-                <div className={`md:flex sm:hidden hidden items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
-                  <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
-                  <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
-                </div>
-              )}
+              <div className={`md:flex sm:hidden hidden items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
+                <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
+                <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
+              </div>
             </div>
             
             <Button type="button" variant="secondary" size="icon" className='md:hidden text-white hover:text-cyan-200 transition-colors duration-300 bg-transparent hover:bg-transparent'
@@ -109,12 +107,10 @@ export default function Navbar() {
                   New Decision
                   <ArrowRight className='scale-75'/> 
                 </Link>
-                {healthStatus && (
-                  <div className={`flex items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
-                    <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
-                    <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
-                  </div>
-                )}
+                <div className={`flex items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
+                  <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
+                  <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
+                </div>
               </div>
             </div>
           )}
