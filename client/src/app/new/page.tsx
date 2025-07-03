@@ -123,20 +123,24 @@ export default function InputCard() {
           <div className='w-9 h-9 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-md flex flex-row items-center justify-center'>
             <Zap className='w-5 h-5 text-white'/>
           </div>
-          <h1 className='text-2xl font-bold mb-1'>What's been on your mind?</h1>
+          <h1 className='sm:text-2xl text-xl font-bold mb-1'>What's been on your mind?</h1>
         </div>
         <div>
           <Input placeholder='What decision do you need to make?'
+            className='placeholder:text-sm'
             onChange={(event) => handleUpdateQuestion(event.target.value)}
           />
         </div>
       </Card>
       <Card className='m-5 p-3 gap-6 sm:p-5'>
-        <div className='flex flex-row gap-4'>
-          <Sparkles className='w-7 h-7'/>
-          <h1 className='text-xl font-semibold'>Additional Context</h1>
+        <div className='flex flex-row items-center gap-2'>
+          <div className='w-9 h-9 flex flex-row items-center justify-center'>
+            <Sparkles className='w-6 h-6'/>
+          </div>
+          <h1 className='sm:text-xl text-lg font-semibold'>Additional Context</h1>
         </div>
         <Textarea placeholder="Share any constraints, priorities, or context that might influence this decision..."
+          className='placeholder:text-sm'
           onChange={(event) => handleUpdateContext(event.target.value)}
         />
       </Card>

@@ -69,19 +69,23 @@ export default function Navbar() {
                     <BrainCircuit className='w-5 h-5 text-white'/>
                   </div>
                   <div className="flex flex-col">
-                    <div className='text-xl font-bold mb-1'>IndecisiveAI</div>
+                    <div className='text-2xl font-bold'>IndecisiveAI</div>
                   </div>
                 </div>
               </Link>
             </div>
 
             <div className='hidden md:flex md:flex-1 item-center justify-center'>
-              <Link href="/new" className=" text-slate-300 hover:text-emerald-300 transition-colors duration-300">
+              {/* <Link href="/new" className=" text-slate-300 hover:text-emerald-300 transition-colors duration-300" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <span>New Decision</span>
-              </Link>
+              </Link> */}
             </div>
 
-            <div className='md:flex md:flex-1 justify-end'>
+            <div className='md:flex md:flex-1 justify-end gap-3'>
+              <Button type="button" variant="default" size="sm" className="md:flex sm:hidden hidden bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10">
+                Get Started
+                <ArrowRight className='scale-95'/> 
+              </Button>
               {healthStatus && (
                 <div className={`md:flex sm:hidden hidden items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
                   <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
@@ -99,9 +103,9 @@ export default function Navbar() {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden mt-4 p-5 rounded-b-2xl border-t border-slate-700 animate-in slide-in-from-top-2 duration-500">
+            <div className="md:hidden mt-4 pt-4 pb-1 rounded-b-2xl border-t border-slate-700 animate-in slide-in-from-top-2 duration-500">
               <div className="flex flex-row justify-between">
-                <Link href="/new" className="flex flex-row text-center text-slate-300 hover:text-emerald-300 transition-colors duration-300">
+                <Link href="/new" className="flex flex-row text-center text-slate-300 hover:text-emerald-300 transition-colors duration-300" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                   New Decision
                   <ArrowRight className='scale-75'/> 
                 </Link>

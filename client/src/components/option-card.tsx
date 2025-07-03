@@ -82,7 +82,7 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
           {pros.map((pro: any, index: any) => {
             return (
               <div key={`${optNo}p${index}`} className='flex w-full items-center gap-2'>
-                <Input placeholder='Add a positive aspect' onChange={(event) => handleProChange(event.target.value, index)}/>
+                <Input placeholder='Add a positive aspect' onChange={(event) => handleProChange(event.target.value, index)} className='placeholder:text-sm'/>
                 {pros.length > 1 && (
                   <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={() => removePro(index)}/>
                 )}
@@ -105,7 +105,7 @@ export default function OptionCard({index, opt, multiple, removeCard, onCardUpda
           {cons.map((con: any, index: any) => {
             return (
               <div key={`${optNo}c${index}`} className='flex w-full items-center gap-2'>
-                <Input placeholder='Add a positive aspect' onChange={(event) => handleConChange(event.target.value, index)}/>
+                <Input placeholder='Add a positive aspect' onChange={(event) => handleConChange(event.target.value, index)} className='placeholder:text-sm'/>
                 {cons.length > 1 && (
                   <X className='w-4 h-4 opacity-50 hover:opacity-80 hover:cursor-pointer' onClick={() => removeCon(index)}/>
                 )}

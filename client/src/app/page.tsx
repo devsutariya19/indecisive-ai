@@ -82,8 +82,8 @@ export default function Home() {
           </div>
           <Link href="/new">
             <div className='flex flex-row justify-center m-5 px-5 gap-8'>
-              <Button type="button" variant="default" size="xxl" className="bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10">
-                Make Your First Decision
+              <Button type="button" variant="default" size="lg" className="bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10">
+                Get Started
                 <ArrowRight className='scale-125'/> 
               </Button>
             </div>
