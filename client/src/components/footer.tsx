@@ -13,7 +13,7 @@ export default function Footer() {
                 IndecisiveAI
               </span>
             </div>
-            <p className="text-slate-400 max-w-md">
+            <p className="text-slate-400 max-w-lg">
               Empowering better decisions through AI-powered analysis. Make confident choices with intelligent recommendations tailored to your unique situation.
             </p>
           </div>

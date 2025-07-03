@@ -159,7 +159,7 @@ export default function InputCard() {
         })}
       </div>
       <div className='flex flex-row justify-center m-5 px-5 gap-8'>
-        <Button variant="outline" size="sm" onClick={() => addOption()} className='hover:cursor-pointer'>
+        <Button variant="outline" size="sm" onClick={() => addOption()} disabled={options.length > 3} className='hover:cursor-pointer'>
           <Plus/> Add Option
         </Button>
       </div>

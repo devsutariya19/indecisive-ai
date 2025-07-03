@@ -26,10 +26,10 @@ export default function RootLayout({
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
+        <footer className="bg-gradient-to-br from-slate-900/80 to bg-cyan-800/30 border-t border-slate-700/50">
+          <Footer/>
+        </footer>
       </body>
-      <footer className="bg-gradient-to-br from-slate-900/80 to bg-cyan-800/30 border-t border-slate-700/50">
-        <Footer/>
-      </footer>
     </html>
   );
 }
