@@ -1,0 +1,7 @@
+services:
+  indecisive-ai:
+    build: .
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    command: ["sh", "-c", "/app/server/server & npm run start --prefix /app/client"]
