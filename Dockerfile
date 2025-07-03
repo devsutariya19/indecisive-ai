@@ -36,4 +36,4 @@ COPY --from=server-build /app/server/server /app/server/
 EXPOSE 3000 8080
 
 # Start application
-CMD ["sh", "-c", "/app/server/server & npm run start --prefix /app/client"]
+CMD /app/server/server & npm run start --prefix /app/client

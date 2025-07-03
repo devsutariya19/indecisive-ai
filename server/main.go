@@ -54,6 +54,6 @@ func main() {
 
 	genai.InitializeGenai()
 
-	port := os.Getenv("PORT")
+	port := os.Getenv("GO_PORT")
 	router.Run(":" + port)
 }
