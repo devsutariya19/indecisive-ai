@@ -91,11 +91,11 @@ export default function InputCard() {
         Additional Context: "${fullData.context}"
   
         Options:
-        ${fullData.options.map(opt => {`
+        ${fullData.options.map(opt => `
           ${opt.name}:
           Pros: ${opt.pros.join(', ')}
           Cons: ${opt.cons.join(', ')}
-        `}).join('\n')}
+        `).join('\n')}
       `);
       
       const decision = {

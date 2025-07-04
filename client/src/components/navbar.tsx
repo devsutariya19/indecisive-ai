@@ -82,10 +82,12 @@ export default function Navbar() {
             </div>
 
             <div className='md:flex md:flex-1 justify-end gap-3'>
-              <Button type="button" variant="default" size="sm" className="md:flex sm:hidden hidden bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10">
-                Get Started
-                <ArrowRight className='scale-95'/> 
-              </Button>
+              <Link href="/new">
+                <Button type="button" variant="default" size="sm" className="md:flex sm:hidden hidden bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10">
+                  Get Started
+                  <ArrowRight className='scale-95'/> 
+                </Button>
+              </Link>
               <div className={`md:flex sm:hidden hidden items-center px-3 py-1 ${statusClass.border_bg} border ${statusClass.border} rounded-full`}>
                 <div className={`w-2 h-2 ${statusClass.bg} rounded-full mr-2 animate-pulse`}></div>
                 <span className={`text-xs ${statusClass.text} font-medium`}>{healthStatus}</span>
