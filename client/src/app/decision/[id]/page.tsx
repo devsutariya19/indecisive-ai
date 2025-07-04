@@ -104,7 +104,7 @@ export default function DecisionResults() {
         <span className='font-bold text-3xl text-center'>{prompt?.question}</span>
       </div>
 
-      <Card className='m-5 px-5'>
+      <Card className='m-5 px-5 flex flex-col justify-center'>
         <div className='flex justify-center'>
           <span className='text-bold text-2xl'>Recommended Decision</span>
         </div>
@@ -170,11 +170,9 @@ export default function DecisionResults() {
             <span className='text-slate-400'>Trust the analysis, but remember your intuition matters too.</span>
           </div>
           <a href="/">
-            <div className='flex flex-row justify-center'>
-              <Button type="button" variant="default" size="lg">
-                <Plus className='scale-110'/> New Question
-              </Button>
-            </div>
+            <Button type="button" variant="default" size="lg" className='bg-gradient-to-b from-cyan-200 to-blue-200/95 shadow-indigo-500/10'>
+              <Plus className='scale-110'/> New Question
+            </Button>
           </a>
         </div>
       </Card>

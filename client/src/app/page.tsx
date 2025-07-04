@@ -34,7 +34,7 @@ export default function Home() {
           </Link>
         </section>
 
-        <section className="flex flex-col gap-15 items-center justify-center p-15 bg-gradient-to-br from-teal-900/10 to-emerald-900/5 rounded-2xl border border-indigo-500/20">
+        <section className="flex flex-col gap-15 items-center justify-center mx-5 p-15 bg-gradient-to-br from-teal-900/10 to-emerald-900/5 rounded-2xl border border-indigo-500/20">
           <div className="flex flex-col items-center text-center gap-2">
             <span className="md:text-4xl text-3xl font-bold">How It Works</span>
             <span className="text-lg text-slate-400">
