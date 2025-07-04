@@ -12,10 +12,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <SidebarProvider>
-            <SidebarInset className="bg-gradient-to-bl from-slate-900 via-cyan-900/20 to-slate-900">
+            <SidebarInset>
               <main className="lg:mx-20 md:mx-10 mx-2">
                 <Navbar/>
                 <div className='mt-40 mb-15'>
