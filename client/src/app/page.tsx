@@ -13,12 +13,12 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-center text-center gap-4">
-            <span className="md:text-6xl text-5xl font-medium">
+            <span className="md:text-5xl text-4xl font-medium">
               Stop 
-              <span className="block bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent md:text-7xl text-6xl font-bold">
+            </span>
+              <span className="block p-2 md:text-7xl text-6xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
                 Overthinking
               </span>
-            </span>
             <span className="text-lg font-normal text-center">
               Get AI-powered recommendations in seconds. Input your options, get clear guidance.
             </span>

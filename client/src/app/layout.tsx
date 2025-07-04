@@ -12,6 +12,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8"/>
+        <title>IndecisiveAI</title>
+      </head>
       <body className="min-h-screen overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <SidebarProvider>
@@ -26,7 +30,7 @@ export default function RootLayout({
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
-        <footer className="bg-gradient-to-br from-slate-900/80 to bg-cyan-800/30 border-t border-slate-700/50">
+        <footer className="bg-gradient-to-br from-slate-900/60 to bg-cyan-800/30 border-t border-slate-700/50">
           <Footer/>
         </footer>
       </body>
